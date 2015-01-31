@@ -1,0 +1,23 @@
+@mixin border-radius($params){
+	-webkit-border-radius: $params;
+	-moz-border-radius: $params;
+	border-radius: $params;
+}
+@mixin animation($params){
+  -webkit-animation: $params;
+  -moz-animation: $params;
+  -ms-animation: $params;
+  animation: $params;
+}
+@mixin transform($params){
+  -webkit-transform: $params;
+  -moz-transform: $params;
+  -ms-transform: $params;
+  transform: $params;
+}
+@mixin translateX($params){
+  -webkit-transform: translateX($params);
+  -moz-transform: translateX($params);
+  -ms-transform: translateX($params);
+  transform: translateX($params);
+}
