@@ -40,7 +40,7 @@ module com.spacewarsts.display {
         }
 
 
-        init():void {
+        private init():void {
             this.graphics.beginFill("#FFFFFF")
             .drawCircle(0,0,10)
             .endFill();
