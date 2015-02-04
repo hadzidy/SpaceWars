@@ -10,9 +10,9 @@ module com.spacewarsts.display {
 
         private deltaY:number;
         private deltaX:number;
-        private canvasCenter;
+        private canvasCenter:{x:number; y:number};
 
-        constructor (canvasSize) {
+        constructor (canvasSize:{x:number; y:number}) {
 
             super();
 
@@ -30,12 +30,12 @@ module com.spacewarsts.display {
             this.getDirection();
         }
         private setInitialPosition():void {
-            var angle= this.getAngle();
+            var angle= this.getRandomAngle();
            this.x= this.canvasCenter.x+ Math.cos(angle)* 200;
            this.y= this.canvasCenter.y+ Math.sin(angle)* 200;
         }
 
-        private getAngle(){
+        private getRandomAngle():number {
             return toRad(Math.random()*360);
         }
 
@@ -47,7 +47,7 @@ module com.spacewarsts.display {
         }
 
 
-        private getDirection(){
+        private getDirection():void{
             var angleRotation= Math.atan2(this.canvasCenter.y - this.y, this.canvasCenter.x - this.x) * 180 / Math.PI;
 
             this.deltaX = (Math.cos(toRad(angleRotation))* 2);
