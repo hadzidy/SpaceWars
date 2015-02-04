@@ -10,13 +10,15 @@ module com.spacewarsts.display {
 
         private deltaY:number;
         private deltaX:number;
-        private canvasCenter:{x:number; y:number};
+        private target:{x:number; y:number};
 
-        constructor (canvasSize:{x:number; y:number}) {
+        constructor (target) {
 
             super();
 
-            this.canvasCenter= {x:canvasSize.w/2, y:canvasSize.h/2};
+            console.log(target);
+
+            this.target= {x:target.x, y:target.y};
 
 
             //this.x = this.initX = config.xPos;
@@ -31,8 +33,8 @@ module com.spacewarsts.display {
         }
         private setInitialPosition():void {
             var angle= this.getRandomAngle();
-           this.x= this.canvasCenter.x+ Math.cos(angle)* 200;
-           this.y= this.canvasCenter.y+ Math.sin(angle)* 200;
+           this.x= this.target.x+ Math.cos(angle)* 500;
+           this.y= this.target.y+ Math.sin(angle)* 500;
         }
 
         private getRandomAngle():number {
@@ -41,14 +43,22 @@ module com.spacewarsts.display {
 
 
         private init():void {
-            this.graphics.beginFill("#FFFFFF")
-            .drawCircle(0,0,10)
-            .endFill();
+            this.graphics.beginStroke("white")
+                .setStrokeStyle(2)
+                .lineTo(0,0)
+                .lineTo(5,-5)
+                .lineTo(15,-5)
+                .lineTo(20,5)
+                .lineTo(15,15)
+                .lineTo(10,20)
+                .lineTo(0,15)
+                .lineTo(-5,5)
+                .closePath();
         }
 
 
         private getDirection():void{
-            var angleRotation= Math.atan2(this.canvasCenter.y - this.y, this.canvasCenter.x - this.x) * 180 / Math.PI;
+            var angleRotation= Math.atan2(this.target.y - this.y, this.target.x - this.x) * 180 / Math.PI;
 
             this.deltaX = (Math.cos(toRad(angleRotation))* 2);
             this.deltaY = (Math.sin(toRad(angleRotation))* 2);
