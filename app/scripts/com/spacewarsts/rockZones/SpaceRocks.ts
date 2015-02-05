@@ -6,15 +6,26 @@
  */
 
 /// <reference path="../display/Asteroids.ts" />
+/// <reference path="../display/Comet.ts" />
+/// <reference path="../display/Planet.ts" />
+/// <reference path="../display/ISpaceRock.ts" />
+/// <reference path="../display/SpaceRockFactory.ts" />
+/// <reference path="../utils/math/IPoint.ts" />
 
 module com.spacewarsts.rockZones {
 
     import Asteroids= display.Asteroids;
+    import Comet= display.Comet;
+    import Planet= display.Planet;
+    import ISpaceRock= display.ISpaceRock;
+    import SpaceRockFactory = display.SpaceRockFactory;
+    import IPoint = utils.math.IPoint;
+
+
 
     export class SpaceRocks {
 
-        private rockTarget;
-        private rockArray;
+        private rockArray:Array<ISpaceRock>;
         private stage;
         private deltaTime;
         private rockCurrentTime;
@@ -22,9 +33,8 @@ module com.spacewarsts.rockZones {
 
         static ROCK_MAX_INTERVAL:number = 2000;
 
-
         constructor(stage, ship) {
-            this.rockArray= [];
+            this.rockArray = [];
             this.rockCurrentTime= 0;
 
             //this.rockTarget= {x:stage.canvas.clientWidth/2, y:stage.canvas.clientHeight/2};
@@ -37,7 +47,7 @@ module com.spacewarsts.rockZones {
             this.shoot();
 
             for(var index in this.rockArray){
-                var a:Asteroids = this.rockArray[index];
+                var a:ISpaceRock = this.rockArray[index];
                 a.update();
             }
         }
@@ -52,10 +62,17 @@ module com.spacewarsts.rockZones {
         }
 
         private createRock():void {
-            //this.rockTarget= {x:this.stage.canvas.clientWidth/2, y:this.stage.canvas.clientHeight/2};
-            this.rockTarget= {x: this.ship.x, y: this.ship.y};
-            var a= new Asteroids(this.rockTarget);
-            console.log(this.rockTarget)
+
+            var roca:number = Math.floor(Math.random() * 3) + 1;
+
+            var rock_position:IPoint = {x: this.ship.x, y: this.ship.y};
+
+            if (roca == SpaceRockFactory.PLANET_TYPE) {
+                rock_position = {x:this.stage.canvas.clientWidth/2, y:this.stage.canvas.clientHeight/2};
+            }
+
+            var a:ISpaceRock = SpaceRockFactory.create(roca, rock_position);
+
             this.rockArray.push(a);
             this.stage.addChild(a);
         }

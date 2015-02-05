@@ -9,7 +9,7 @@ module com.spacewarsts.display {
     import toRad = utils.math.toRad;
     import IPoint = utils.math.IPoint;
 
-    export class Asteroids extends createjs.Shape implements  ISpaceRock {
+    export class Comet extends createjs.Shape implements  ISpaceRock {
 
         private deltaY:number;
         private deltaX:number;
@@ -23,8 +23,8 @@ module com.spacewarsts.display {
         }
         private setInitialPosition():void {
             var angle= this.getRandomAngle();
-           this.x= this.target.x+ Math.cos(angle)* 500;
-           this.y= this.target.y+ Math.sin(angle)* 500;
+            this.x= this.target.x+ Math.cos(angle)* 600;
+            this.y= this.target.y+ Math.sin(angle)* 600;
         }
 
         private getRandomAngle():number {
@@ -36,13 +36,13 @@ module com.spacewarsts.display {
             this.graphics.beginStroke("white")
                 .setStrokeStyle(2)
                 .lineTo(0,0)
-                .lineTo(5,-5)
-                .lineTo(15,-5)
-                .lineTo(20,5)
-                .lineTo(15,15)
-                .lineTo(10,20)
-                .lineTo(0,15)
-                .lineTo(-5,5)
+                .lineTo(6,-6)
+                .lineTo(24,-6)
+                .lineTo(30,0)
+                .lineTo(30,6)
+                .lineTo(24,12)
+                .lineTo(6,12)
+                .lineTo(0,0)
                 .closePath();
         }
 
@@ -50,8 +50,8 @@ module com.spacewarsts.display {
         private getDirection():void{
             var angleRotation= Math.atan2(this.target.y - this.y, this.target.x - this.x) * 180 / Math.PI;
 
-            this.deltaX = (Math.cos(toRad(angleRotation))* 3);
-            this.deltaY = (Math.sin(toRad(angleRotation))* 3);
+            this.deltaX = (Math.cos(toRad(angleRotation))* 4);
+            this.deltaY = (Math.sin(toRad(angleRotation))* 4);
         }
 
         update():void {
