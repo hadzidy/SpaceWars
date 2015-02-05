@@ -19,6 +19,7 @@ module com.spacewarsts.display {
         private _shipSpeedY:number;
         private _mousePosition;
         private _gun:Gun;
+        private _fire;
 
         constructor () {
             super();
@@ -32,22 +33,49 @@ module com.spacewarsts.display {
 
             this._gun = new Gun(this);
 
-            this.graphics.setStrokeStyle(2)
-                .setStrokeStyle(2)
-                .beginStroke("#FFFFFF")
-                .moveTo(13, 0)
-                .lineTo(-13, 10)
-                .moveTo(13, 0)
-                .lineTo(-13, -10)
-                .moveTo(-7, 8)
-                .lineTo(-7, -8)
-                .endStroke();
+            this.drawShip();
 
             this.x = 120;
             this.y = 120;
 
             this._mousePosition= {x:0, y:0};
             this.updateMousePosition();
+        }
+
+        private drawShip(){
+            this.graphics.setStrokeStyle(2)
+                .beginStroke("#FFFFFF")
+                .moveTo(-14, 0)
+                .lineTo(-3, -5)
+                .lineTo(2, -6)
+                .lineTo(7, -6)
+                .lineTo(12, -3)
+                .lineTo(14, 0)
+                .lineTo(12, 3)
+                .lineTo(7, 6)
+                .lineTo(2, 6)
+                .lineTo(-3, 5)
+                .lineTo(-14, 0)
+                .moveTo(-7, -3)
+                .lineTo(-14, -6)
+                .lineTo(-14, -8)
+                .lineTo(-7, -8)
+                .lineTo(-3, -5)
+                .moveTo(-7, 3)
+                .lineTo(-14, 6)
+                .lineTo(-14, 8)
+                .lineTo(-7, 8)
+                .lineTo(-3, 5)
+                .endStroke()
+                .setStrokeStyle(1).beginStroke("#FFFFFF")
+                .drawCircle(4, 0, 2);
+            this.drawFire();
+        }
+
+        private drawFire(){
+            this._fire = [this.graphics.setStrokeStyle(2).beginStroke("#FFFFFF").moveTo(-24, -4).lineTo(-18, -4),
+                this.graphics.setStrokeStyle(2).beginStroke("#FFFFFF").moveTo(-22, 0).lineTo(-16, 0),
+                this.graphics.setStrokeStyle(2).beginStroke("#FFFFFF").moveTo(-24, 4).lineTo(-18, 4)];
         }
 
         private updateMousePosition(){

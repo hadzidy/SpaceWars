@@ -32,7 +32,7 @@ module com.spacewarsts {
             this.ship = new Spaceship();
             this.stage.addChild(this.ship);
 
-            var spaceRock=  new SpaceRocks(this.stage);
+            var spaceRock=  new SpaceRocks(this.stage, this.ship);
 
              var tick= (event)=> {
                  var deltaTime = event.delta;

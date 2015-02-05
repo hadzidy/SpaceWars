@@ -11,7 +11,7 @@ module com.spacewarsts.ui {
         static DOWN_KEY   : number = 40;
         static RIGHT_KEY   : number = 39;
         static LEFT_KEY   : number = 37;
-        static SHOOT_KEY   : number = 13;
+        static SHOOT_KEY   : number = 32;
 
         private static CURRENT_KEY:number = -1;
         

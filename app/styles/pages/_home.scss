@@ -1,7 +1,11 @@
 body, html{
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: #121421;
+}
+
+div{
+  height: 1000px;
 }
 
 #container {
@@ -16,7 +20,15 @@ body, html{
 }
 
 #GameCanvas{
-  border: 2px solid white;
+  border: 4px solid white;
+  background-image: url("../images/space.jpg");
+  background-size: cover;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 #message {

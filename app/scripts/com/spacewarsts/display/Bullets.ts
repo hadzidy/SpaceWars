@@ -28,7 +28,7 @@ module com.spacewarsts.display {
         }
 
         init():void {
-            this.graphics.beginFill("grey").drawCircle(0, 0, 2)
+            this.graphics.beginFill("#FFFFFF").drawCircle(0, 0, 2)
                 .drawCircle(4, 0, 3).drawCircle(10, 0, 4);
         }
 

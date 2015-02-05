@@ -18,17 +18,17 @@ module com.spacewarsts.rockZones {
         private stage;
         private deltaTime;
         private rockCurrentTime;
+        private ship;
 
         static ROCK_MAX_INTERVAL:number = 2000;
 
 
-        constructor(stage) {
+        constructor(stage, ship) {
             this.rockArray= [];
             this.rockCurrentTime= 0;
 
-            console.log(stage);
-
-            this.rockTarget= {x:stage.canvas.clientWidth/2, y:stage.canvas.clientHeight/2};
+            //this.rockTarget= {x:stage.canvas.clientWidth/2, y:stage.canvas.clientHeight/2};
+            this.ship= ship;
             this.stage= stage;
         }
 
@@ -44,17 +44,18 @@ module com.spacewarsts.rockZones {
 
         private shoot(){
             if(this.rockCurrentTime<=0){
-                console.log("pum, pum, pum, pum");
                 this.createRock();
                 this.rockCurrentTime = SpaceRocks.ROCK_MAX_INTERVAL;
             }else{
                 this.rockCurrentTime -= this.deltaTime;
             }
-
         }
 
         private createRock():void {
+            //this.rockTarget= {x:this.stage.canvas.clientWidth/2, y:this.stage.canvas.clientHeight/2};
+            this.rockTarget= {x: this.ship.x, y: this.ship.y};
             var a= new Asteroids(this.rockTarget);
+            console.log(this.rockTarget)
             this.rockArray.push(a);
             this.stage.addChild(a);
         }

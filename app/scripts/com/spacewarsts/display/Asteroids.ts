@@ -60,8 +60,8 @@ module com.spacewarsts.display {
         private getDirection():void{
             var angleRotation= Math.atan2(this.target.y - this.y, this.target.x - this.x) * 180 / Math.PI;
 
-            this.deltaX = (Math.cos(toRad(angleRotation))* 2);
-            this.deltaY = (Math.sin(toRad(angleRotation))* 2);
+            this.deltaX = (Math.cos(toRad(angleRotation))* 3);
+            this.deltaY = (Math.sin(toRad(angleRotation))* 3);
         }
 
         update():void {
