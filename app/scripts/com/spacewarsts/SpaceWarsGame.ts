@@ -39,6 +39,8 @@ module com.spacewarsts {
                  this.ship.update(deltaTime);
                  spaceRock.update(deltaTime);
 
+
+
                  this.stage.update();
             }
             createjs.Ticker.setFPS(60)

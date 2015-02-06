@@ -21,20 +21,20 @@ module com.spacewarsts.display {
             switch(id){
                 case SpaceRockFactory.ASTEROID_TYPE:
                     a = new Asteroids(rockTarget);
-                    console.log('soy tipo 1');
+
                     break;
                 case SpaceRockFactory.COMET_TYPE:
                     a = new Comet(rockTarget);
-                    console.log('soy tipo 2');
+
                     break;
 
                 case SpaceRockFactory.PLANET_TYPE:
                     a = new Planet(rockTarget);
-                    console.log('soy tipo 3');
+
                     break;
                 case SpaceRockFactory.METEORITE_TYPE:
                     a = new Meteorites(rockTarget);
-                    console.log('soy tipo 4');
+
                     break;
             }
             return a;

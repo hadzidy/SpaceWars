@@ -13,6 +13,7 @@ module com.spacewarsts.display {
 
         private deltaY:number;
         private deltaX:number;
+        public radio:number;
 
         constructor (private target:IPoint) {
 
@@ -44,6 +45,7 @@ module com.spacewarsts.display {
                 .lineTo(0,15)
                 .lineTo(-5,5)
                 .closePath();
+            this.radio = 5;
         }
 
 
