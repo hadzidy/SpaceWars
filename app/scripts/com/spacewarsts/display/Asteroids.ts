@@ -36,14 +36,13 @@ module com.spacewarsts.display {
         private init():void {
             this.graphics.beginStroke("white")
                 .setStrokeStyle(2)
-                .lineTo(0,0)
-                .lineTo(5,-5)
-                .lineTo(15,-5)
-                .lineTo(20,5)
-                .lineTo(15,15)
-                .lineTo(10,20)
-                .lineTo(0,15)
-                .lineTo(-5,5)
+                .moveTo(-15, -5)
+                .lineTo(0, -15)
+                .lineTo(10, -15)
+                .lineTo(15, -10)
+                .lineTo(15, 5)
+                .lineTo(0, 15)
+                .lineTo(-10, 10)
                 .closePath();
             this.radio = 5;
         }

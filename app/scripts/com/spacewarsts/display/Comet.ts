@@ -35,14 +35,16 @@ module com.spacewarsts.display {
         private init():void {
             this.graphics.beginStroke("white")
                 .setStrokeStyle(2)
-                .lineTo(0,0)
-                .lineTo(6,-6)
-                .lineTo(24,-6)
-                .lineTo(30,0)
-                .lineTo(30,6)
-                .lineTo(24,12)
-                .lineTo(6,12)
-                .lineTo(0,0)
+                .moveTo(-30, 0)
+                .lineTo(-24, -12)
+                .lineTo(-18, -18)
+                .lineTo(0, -18)
+                .lineTo(12, -12)
+                .lineTo(18, 6)
+                .lineTo(6, 18)
+                .lineTo(-12, 18)
+                .lineTo(-24, 12)
+                .lineTo(-30, 6)
                 .closePath();
         }
 

@@ -3,6 +3,7 @@
 /// <reference path="./display/Asteroids.ts" />
 /// <reference path="./rockZones/SpaceRocks.ts" />
 /// <reference path="./ui/Keyboard.ts" />
+/// <reference path="./core/CoalitionManager.ts" />
 
 
 module com.spacewarsts {
@@ -12,41 +13,61 @@ module com.spacewarsts {
     import SpaceRocks= rockZones.SpaceRocks;
     import Asteroids= display.Asteroids;
     import Keyboard = ui.Keyboard;
+    import CoalitionManager = core.CoalitionManager;
 
 
     export class SpaceWarsGame {
 
-        public stage;
+        private _stage;
+        private _ship: Spaceship;
+        private _coalitionManager:CoalitionManager;
+        private _spaceRockManager:SpaceRocks;
 
-        public ship: Spaceship;
 
         constructor(){
             console.log("New Space Wars Game Created");
             Keyboard.initialize($(document));
         }
+
+        get stage():createjs.Stage {
+            return this._stage;
+        }
+
+        get ship():Spaceship {
+            return this._ship;
+        }
+
+        get spaceRockManager():SpaceRocks {
+            return this._spaceRockManager;
+        }
+
         public start(): void {
             console.log("Space Wars Game Started");
-            this.stage = new createjs.Stage("GameCanvas");
+            this._stage = new createjs.Stage("GameCanvas");
 
             
-            this.ship = new Spaceship();
-            this.stage.addChild(this.ship);
+            this._ship = new Spaceship();
+            this._stage.addChild(this._ship);
+            this._spaceRockManager =  new SpaceRocks(this._stage, this._ship);
 
-            var spaceRock=  new SpaceRocks(this.stage, this.ship);
+            this._coalitionManager = new CoalitionManager(this);
+
+            this._coalitionManager.addEventListener(CoalitionManager.ROCK_SHIP_COALITION_EVENT, ()=> {
+                console.log("ROCK SHIP COLITION");
+            });
 
              var tick= (event)=> {
                  var deltaTime = event.delta;
-                 this.ship.update(deltaTime);
-                 spaceRock.update(deltaTime);
+                 this._ship.update(deltaTime);
+                 this._spaceRockManager.update(deltaTime);
 
-
-
-                 this.stage.update();
+                 this._coalitionManager.update();
+                 this._stage.update();
             }
             createjs.Ticker.setFPS(60)
             createjs.Ticker.addEventListener("tick", tick);
 
-            this.stage.update();
+            this._stage.update();
 
         }
     }

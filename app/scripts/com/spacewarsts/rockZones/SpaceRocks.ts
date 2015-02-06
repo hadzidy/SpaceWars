@@ -12,7 +12,6 @@
 /// <reference path="../display/ISpaceRock.ts" />
 /// <reference path="../display/SpaceRockFactory.ts" />
 /// <reference path="../utils/math/IPoint.ts" />
-/// <reference path="../utils/math/getDistance.ts" />
 
 module com.spacewarsts.rockZones {
 
@@ -23,9 +22,6 @@ module com.spacewarsts.rockZones {
     import ISpaceRock= display.ISpaceRock;
     import SpaceRockFactory = display.SpaceRockFactory;
     import IPoint = utils.math.IPoint;
-    import getDistance = utils.math.getDistance;
-
-
 
     export class SpaceRocks {
 
@@ -40,10 +36,12 @@ module com.spacewarsts.rockZones {
         constructor(stage, ship) {
             this.rockArray = [];
             this.rockCurrentTime= 0;
-
-            //this.rockTarget= {x:stage.canvas.clientWidth/2, y:stage.canvas.clientHeight/2};
             this.ship= ship;
             this.stage= stage;
+        }
+
+        get allRocks():Array<ISpaceRock> {
+            return this.rockArray;
         }
 
         public update(delta): void {
@@ -55,8 +53,6 @@ module com.spacewarsts.rockZones {
                 a.update();
 
             }
-
-            this.findCoalition();
         }
 
         private shoot(){
@@ -89,23 +85,5 @@ module com.spacewarsts.rockZones {
             this.stage.addChild(a);
         }
 
-        private findCoalition(){
-
-            var distance;
-            var radio_ship = 6;
-            var radio_roca = 8;
-            for(var index in this.rockArray){
-                var a = {x:this.ship.x, y:this.ship.y};
-                var b = {x:this.rockArray[index]['x'], y:this.rockArray[index]['y']};
-               distance = getDistance(a,b);
-                //radio_roca = this.rockArray.radio;
-                //distance = Math.sqrt(((a.x-b['x'])*(a.x-b['x'])) + ((a.y-b['y'])*(a.y-b['y'])));
-
-                if(distance < (radio_ship+radio_roca)){
-                    this.ship.coalition();
-                }
-
-            }
-        }
     }
 }
