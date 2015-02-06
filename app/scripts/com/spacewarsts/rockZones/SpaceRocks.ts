@@ -8,6 +8,7 @@
 /// <reference path="../display/Asteroids.ts" />
 /// <reference path="../display/Comet.ts" />
 /// <reference path="../display/Planet.ts" />
+/// <reference path="../display/Meteorites.ts" />
 /// <reference path="../display/ISpaceRock.ts" />
 /// <reference path="../display/SpaceRockFactory.ts" />
 /// <reference path="../utils/math/IPoint.ts" />
@@ -17,6 +18,7 @@ module com.spacewarsts.rockZones {
     import Asteroids= display.Asteroids;
     import Comet= display.Comet;
     import Planet= display.Planet;
+    import Meteorites= display.Meteorites;
     import ISpaceRock= display.ISpaceRock;
     import SpaceRockFactory = display.SpaceRockFactory;
     import IPoint = utils.math.IPoint;
@@ -31,7 +33,7 @@ module com.spacewarsts.rockZones {
         private rockCurrentTime;
         private ship;
 
-        static ROCK_MAX_INTERVAL:number = 2000;
+        static ROCK_MAX_INTERVAL:number = 800;
 
         constructor(stage, ship) {
             this.rockArray = [];
@@ -50,6 +52,8 @@ module com.spacewarsts.rockZones {
                 var a:ISpaceRock = this.rockArray[index];
                 a.update();
             }
+
+            this.findCoalition();
         }
 
         private shoot(){
@@ -63,18 +67,33 @@ module com.spacewarsts.rockZones {
 
         private createRock():void {
 
-            var roca:number = Math.floor(Math.random() * 3) + 1;
+            var roca:number = Math.floor(Math.random() * 4) + 1;
+            console.log(roca);
 
             var rock_position:IPoint = {x: this.ship.x, y: this.ship.y};
 
             if (roca == SpaceRockFactory.PLANET_TYPE) {
                 rock_position = {x:this.stage.canvas.clientWidth/2, y:this.stage.canvas.clientHeight/2};
             }
+            if (roca == SpaceRockFactory.METEORITE_TYPE) {
+                rock_position = {x:this.stage.canvas.clientWidth/3, y:this.stage.canvas.clientHeight/3};
+            }
 
             var a:ISpaceRock = SpaceRockFactory.create(roca, rock_position);
 
             this.rockArray.push(a);
             this.stage.addChild(a);
+        }
+
+        private findCoalition(){
+            for(var index in this.rockArray){
+                if(Math.floor(this.rockArray[index]["x"])=== Math.floor(this.ship.x)){
+                    if(Math.floor(this.rockArray[index]["y"])=== Math.floor(this.ship.y)){
+                        this.ship.coalition();
+                    }
+                }
+
+            }
         }
     }
 }

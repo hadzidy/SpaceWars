@@ -14,6 +14,7 @@ module com.spacewarsts.display {
         static ASTEROID_TYPE:number = 1;
         static COMET_TYPE:number = 2;
         static PLANET_TYPE:number = 3;
+        static METEORITE_TYPE:number = 4;
 
         static create (id:number, rockTarget:IPoint):ISpaceRock {
             var a:ISpaceRock;
@@ -30,6 +31,10 @@ module com.spacewarsts.display {
                 case SpaceRockFactory.PLANET_TYPE:
                     a = new Planet(rockTarget);
                     console.log('soy tipo 3');
+                    break;
+                case SpaceRockFactory.METEORITE_TYPE:
+                    a = new Meteorites(rockTarget);
+                    console.log('soy tipo 4');
                     break;
             }
             return a;

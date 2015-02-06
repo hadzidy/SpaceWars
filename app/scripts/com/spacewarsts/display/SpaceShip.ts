@@ -121,5 +121,9 @@ module com.spacewarsts.display {
             //this.updateRotation();
             this.updatePosition();
         }
+
+        coalition(){
+            console.log("crrrrrraaahhhhh")
+        }
     }
 }
