@@ -51,6 +51,7 @@ module com.spacewarsts {
             this._spaceRockManager =  new SpaceRocks(this._stage, this._ship);
 
             this._coalitionManager = new CoalitionManager(this);
+            console.log(this._ship);
 
             this._coalitionManager.addEventListener(CoalitionManager.ROCK_SHIP_COALITION_EVENT, (e:createjs.Event)=> {
                 this.ship.coalition();
@@ -64,6 +65,7 @@ module com.spacewarsts {
                  this._coalitionManager.update();
                  this._stage.update();
             }
+
             createjs.Ticker.setFPS(60)
             createjs.Ticker.addEventListener("tick", tick);
 

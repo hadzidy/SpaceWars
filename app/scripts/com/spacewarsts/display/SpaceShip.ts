@@ -22,6 +22,8 @@ module com.spacewarsts.display {
         private _fire:Array<createjs.Graphics>;
         private _radius:number;
 
+        public radio;
+
         constructor () {
             super();
             this.init();
@@ -126,6 +128,7 @@ module com.spacewarsts.display {
             this._gun.update(delta);
             //this.updateRotation();
             this.updatePosition();
+            this.radio = 3;
         }
 
         coalition(){
