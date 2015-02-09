@@ -13,6 +13,7 @@ module com.spacewarsts.display {
 
         private deltaY:number;
         private deltaX:number;
+        private _radius:number;
 
         constructor (private target:IPoint) {
 
@@ -20,7 +21,13 @@ module com.spacewarsts.display {
             this.init();
             this.setInitialPosition();
             this.getDirection();
+            this._radius= 20;
         }
+
+        get radius(){
+            return this._radius;
+        }
+
         private setInitialPosition():void {
             var angle= this.getRandomAngle();
             this.x= this.target.x+ Math.cos(angle)* 600;

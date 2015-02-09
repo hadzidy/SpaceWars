@@ -67,7 +67,6 @@ module com.spacewarsts.rockZones {
         private createRock():void {
 
             var roca:number = Math.floor(Math.random() * 4) + 1;
-            console.log(roca);
 
             var rock_position:IPoint = {x: this.ship.x, y: this.ship.y};
 

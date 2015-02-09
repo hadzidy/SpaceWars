@@ -52,8 +52,8 @@ module com.spacewarsts {
 
             this._coalitionManager = new CoalitionManager(this);
 
-            this._coalitionManager.addEventListener(CoalitionManager.ROCK_SHIP_COALITION_EVENT, ()=> {
-                console.log("ROCK SHIP COLITION");
+            this._coalitionManager.addEventListener(CoalitionManager.ROCK_SHIP_COALITION_EVENT, (e:createjs.Event)=> {
+                this.ship.coalition();
             });
 
              var tick= (event)=> {

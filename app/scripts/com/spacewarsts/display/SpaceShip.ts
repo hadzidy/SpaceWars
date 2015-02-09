@@ -19,11 +19,17 @@ module com.spacewarsts.display {
         private _shipSpeedY:number;
         private _mousePosition;
         private _gun:Gun;
-        private _fire;
+        private _fire:Array<createjs.Graphics>;
+        private _radius:number;
 
         constructor () {
             super();
             this.init();
+            this._radius= 14;
+        }
+
+        get radius(){
+            return this._radius;
         }
 
         private init():void {
