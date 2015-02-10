@@ -24,10 +24,14 @@ module com.spacewarsts {
         private _spaceRockManager:SpaceRocks;
         private _ticker_handler;
 
+        private _score;
+
 
         constructor(){
             console.log("New Space Wars Game Created");
             Keyboard.initialize($(document));
+
+            this._score= 0;
         }
 
         get stage():createjs.Stage {
@@ -69,6 +73,8 @@ module com.spacewarsts {
                 console.log(e.data);
                 var bulletToRemove= e.data[0];
                 var rockToRemove= e.data[1];
+                this._score+= 1;
+                console.log(this._score);
                 this._ship.gun.coalitionRemoveBullet(bulletToRemove);
                 this.spaceRockManager.coalitionRemoveRock(rockToRemove);
             });
