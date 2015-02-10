@@ -15,10 +15,10 @@ module com.spacewarsts.display {
 
     export class Spaceship extends createjs.Shape {
 
+        public  gun:Gun;
         private _shipSpeedX:number;
         private _shipSpeedY:number;
         private _mousePosition;
-        private _gun:Gun;
         private _fire:Array<createjs.Graphics>;
         private _radius:number;
 
@@ -37,7 +37,7 @@ module com.spacewarsts.display {
             this._shipSpeedX = 0;
             this._shipSpeedY = 0;
 
-            this._gun = new Gun(this);
+            this.gun = new Gun(this);
 
             this.drawShip();
 
@@ -123,13 +123,14 @@ module com.spacewarsts.display {
         }
 
         update(delta:number):void {
-            this._gun.update(delta);
+            this.gun.update(delta);
             //this.updateRotation();
             this.updatePosition();
         }
 
         coalition(){
-            console.log("crrrrrraaahhhhh")
+
+            //console.log("crrrrrraaahhhhh");
         }
     }
 }

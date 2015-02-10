@@ -3,6 +3,7 @@
  */
 
 /// <reference path="./../display/SpaceShip.ts" />
+/// <reference path="./../display/ISpaceRock.ts" />
 /// <reference path="./../rockZones/SpaceRocks.ts" />
 /// <reference path="../utils/math/getDistance.ts" />
 /// <reference path="../SpaceWarsGame.ts" />
@@ -11,6 +12,7 @@ module com.spacewarsts.core {
 
     import Spaceship = display.Spaceship;
     import SpaceRocks = rockZones.SpaceRocks;
+    import ISpaceRock= display.ISpaceRock;
     import getDistance = utils.math.getDistance;
     //import SpaceWarsGame = spacewarsts.SpaceWarsGame;
 
@@ -19,6 +21,7 @@ module com.spacewarsts.core {
         private _shipHitArea:createjs.Shape;
 
         static ROCK_SHIP_COALITION_EVENT = "CoalitionManager.RockShipCoalitionEvent"
+        static BULLET_ROCK_COALITION_EVENT = "CoalitionManager.BulletRockCoalitionEvent"
 
         constructor (private game:SpaceWarsGame) {
             super();
@@ -31,7 +34,7 @@ module com.spacewarsts.core {
                 .closePath();
 
 
-            game.stage.addChild(this._shipHitArea);
+            //game.stage.addChild(this._shipHitArea);
         }
 
         update():void {
@@ -39,21 +42,20 @@ module com.spacewarsts.core {
             this._shipHitArea.y = this.game.ship.y;
             //this.findeBulletsRocksCoalition();
             this.findRocksShipCoalition();
+            this.findBulletRockCoalition();
         }
 
         private findRocksShipCoalition():void {
-            var radio_ship = this.game.ship.radius;
-            var radio_roca;
 
             var allRocks = this.game.spaceRockManager.allRocks;
             var ship = this.game.ship;
 
             for(var index in allRocks){
-                radio_roca= allRocks[index]["radius"];
+                var rock:ISpaceRock = allRocks[index];
                 var a = {x:ship.x, y:ship.y};
-                var b = {x:allRocks[index]['x'], y:allRocks[index]['y']};
+                var b = {x:rock.x, y:rock.y};
                 var distance = getDistance(a,b);
-                if(distance < (radio_ship+radio_roca)){
+                if(distance < (ship.radius + rock.radius)){
                     this.dispatchEvent(new createjs.Event(CoalitionManager.ROCK_SHIP_COALITION_EVENT, false, false));
                 }
 
@@ -61,6 +63,22 @@ module com.spacewarsts.core {
         }
 
         private findBulletRockCoalition():void{
+            var allBullets= this.game.ship.gun.allBullets;
+            var allRocks = this.game.spaceRockManager.allRocks;
+            for(var indexB in allBullets){
+                var bulletRadio= allBullets[indexB].radius;
+                var a = {x: allBullets[indexB].x, y: allBullets[indexB].y};
+                for(var indexR in allRocks){
+                    var rockRadio= allRocks[indexR]["radius"];
+                    var b = {x:allRocks[indexR]['x'], y:allRocks[indexR]['y']};
+                    var distance = getDistance(a,b);
+                    if(distance < (bulletRadio+rockRadio)){
+                        var event = new createjs.Event(CoalitionManager.BULLET_ROCK_COALITION_EVENT, false, false);
+                        event.data= [indexB,indexR];
+                        this.dispatchEvent(event);
+                    }
+                }
+            }
 
         }
 

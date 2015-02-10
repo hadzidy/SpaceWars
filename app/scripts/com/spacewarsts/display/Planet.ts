@@ -30,8 +30,8 @@ module com.spacewarsts.display {
         }
         private setInitialPosition():void {
             var angle= this.getRandomAngle();
-            this.x= this.target.x+ Math.cos(angle)* 300;
-            this.y= this.target.y+ Math.sin(angle)* 300;
+            this.x= this.target.x+ Math.cos(angle)* 400;
+            this.y= this.target.y+ Math.sin(angle)* 400;
         }
 
         private getRandomAngle():number {

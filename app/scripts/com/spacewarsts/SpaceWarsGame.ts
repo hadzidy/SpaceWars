@@ -22,6 +22,7 @@ module com.spacewarsts {
         private _ship: Spaceship;
         private _coalitionManager:CoalitionManager;
         private _spaceRockManager:SpaceRocks;
+        private _ticker_handler;
 
 
         constructor(){
@@ -54,23 +55,54 @@ module com.spacewarsts {
             console.log(this._ship);
 
             this._coalitionManager.addEventListener(CoalitionManager.ROCK_SHIP_COALITION_EVENT, (e:createjs.Event)=> {
-                this.ship.coalition();
+                var shipIndex= this.stage.children.indexOf(this._ship);
+                this.stage.removeChildAt(shipIndex);
+                this.stage.removeAllChildren();
+                this.showGameOver();
+                console.log("GameOVer");
+
+                this.stopTicker();
+
             });
 
-             var tick= (event)=> {
-                 var deltaTime = event.delta;
-                 this._ship.update(deltaTime);
-                 this._spaceRockManager.update(deltaTime);
+            this._coalitionManager.addEventListener(CoalitionManager.BULLET_ROCK_COALITION_EVENT, (e:createjs.Event)=> {
+                console.log(e.data);
+                var bulletToRemove= e.data[0];
+                var rockToRemove= e.data[1];
+                this._ship.gun.coalitionRemoveBullet(bulletToRemove);
+                this.spaceRockManager.coalitionRemoveRock(rockToRemove);
+            });
 
-                 this._coalitionManager.update();
-                 this._stage.update();
-            }
 
-            createjs.Ticker.setFPS(60)
-            createjs.Ticker.addEventListener("tick", tick);
+            this._ticker_handler = this.tick.bind(this);
+
+            createjs.Ticker.setFPS(60);
 
             this._stage.update();
 
+            this.startTicker();
+
+        }
+
+        startTicker ():void {
+            createjs.Ticker.addEventListener("tick", this._ticker_handler);
+        }
+
+        stopTicker ():void {
+            createjs.Ticker.removeEventListener("tick", this._ticker_handler);
+        }
+
+        private tick (event):void {
+            var deltaTime = event.delta;
+            this._ship.update(deltaTime);
+            this._spaceRockManager.update(deltaTime);
+
+            this._coalitionManager.update();
+            this._stage.update();
+        }
+
+        private showGameOver(){
+            $("h1").css("display", "block");
         }
     }
 }

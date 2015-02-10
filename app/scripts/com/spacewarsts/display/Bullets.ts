@@ -12,6 +12,7 @@ module com.spacewarsts.display {
         private deltaX:number;
         private initX:number;
         private initY:number;
+        private _radius:number;
 
         constructor (config:{xPos:number;yPos:number;angle:number}) {
 
@@ -23,8 +24,13 @@ module com.spacewarsts.display {
 
             this.deltaX = (Math.cos(toRad(this.rotation))) * 10;
             this.deltaY = (Math.sin(toRad(this.rotation))) * 10;
+            this._radius= 3;
 
             this.init();
+        }
+
+        get radius(){
+            return this._radius;
         }
 
         init():void {

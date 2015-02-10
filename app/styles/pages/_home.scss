@@ -31,8 +31,17 @@ div{
   bottom: 0;
 }
 
-#message {
-  font-family: $helvetica;
-  font-size: 75px;
-  @include align-self(flex-center);
+h1{
+  font-size: 36px;
+  color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 222px;
+  height: 28px;
+  left: 0;
+  right: 0;
+  display: none;
+  font-family: sans-serif;
 }

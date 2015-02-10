@@ -6,8 +6,9 @@
 module com.spacewarsts.display {
     import  IPoint = utils.math.IPoint;
     export interface ISpaceRock {
-        //new (target:{x:number;y:number}) : ISpaceRock;
-        //(target:IPoint);
+        x:number;
+        y:number;
+        radius:number;
         update():void;
     }
 }

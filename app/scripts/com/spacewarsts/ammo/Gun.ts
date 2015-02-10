@@ -25,6 +25,10 @@ module com.spacewarsts.ammo {
             this.bulletCurrentTime= 0;
         }
 
+        get allBullets(){
+            return this.bulletArray;
+        }
+
         public update(delta:number): void {
 
             this.deltaTime = delta;
@@ -40,7 +44,6 @@ module com.spacewarsts.ammo {
         private shoot(){
             if(Keyboard.isKeyDown(Keyboard.SHOOT_KEY)){
                 if(this.bulletCurrentTime<=0){
-                    console.log("pum, pum, pum, pum");
                     this.createBullet();
                     this.bulletCurrentTime = Gun.BULLET_MAX_INTERVAL;
                 }else{
@@ -55,6 +58,11 @@ module com.spacewarsts.ammo {
             var b= new Bullet({xPos:this.ship.x, yPos:this.ship.y, angle:this.ship.rotation});
             this.bulletArray.push(b);
             this.ship.parent.addChild(b);
+        }
+
+        public coalitionRemoveBullet(index):void {
+            this.ship.parent.removeChild(this.bulletArray[index]);
+            this.bulletArray.splice(index, 1);
         }
     }
 }
