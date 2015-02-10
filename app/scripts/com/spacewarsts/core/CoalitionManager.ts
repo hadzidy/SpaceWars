@@ -4,6 +4,7 @@
 
 /// <reference path="./../display/SpaceShip.ts" />
 /// <reference path="./../display/ISpaceRock.ts" />
+/// <reference path="./../display/Bullets.ts" />
 /// <reference path="./../rockZones/SpaceRocks.ts" />
 /// <reference path="../utils/math/getDistance.ts" />
 /// <reference path="../SpaceWarsGame.ts" />
@@ -13,6 +14,7 @@ module com.spacewarsts.core {
     import Spaceship = display.Spaceship;
     import SpaceRocks = rockZones.SpaceRocks;
     import ISpaceRock= display.ISpaceRock;
+    import Bullets= display.Bullets;
     import getDistance = utils.math.getDistance;
     //import SpaceWarsGame = spacewarsts.SpaceWarsGame;
 
@@ -63,16 +65,18 @@ module com.spacewarsts.core {
         }
 
         private findBulletRockCoalition():void{
+
             var allBullets= this.game.ship.gun.allBullets;
             var allRocks = this.game.spaceRockManager.allRocks;
+
             for(var indexB in allBullets){
-                var bulletRadio= allBullets[indexB].radius;
-                var a = {x: allBullets[indexB].x, y: allBullets[indexB].y};
+                var bullet:Bullets= allBullets[indexB];
+                var a = {x: bullet.x, y: bullet.y};
                 for(var indexR in allRocks){
-                    var rockRadio= allRocks[indexR]["radius"];
-                    var b = {x:allRocks[indexR]['x'], y:allRocks[indexR]['y']};
+                    var rock:ISpaceRock= allRocks[indexR];
+                    var b = {x: rock.x, y: rock.y};
                     var distance = getDistance(a,b);
-                    if(distance < (bulletRadio+rockRadio)){
+                    if(distance < (bullet.radius +rock.radius)){
                         var event = new createjs.Event(CoalitionManager.BULLET_ROCK_COALITION_EVENT, false, false);
                         event.data= [indexB,indexR];
                         this.dispatchEvent(event);
