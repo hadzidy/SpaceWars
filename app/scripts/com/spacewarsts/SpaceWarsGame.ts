@@ -73,7 +73,8 @@ module com.spacewarsts {
                 console.log(e.data);
                 var bulletToRemove= e.data[0];
                 var rockToRemove= e.data[1];
-                this._score+= 1;
+                this._score+= 100;
+                $("h2").html(this._score);
                 console.log(this._score);
                 this._ship.gun.coalitionRemoveBullet(bulletToRemove);
                 this.spaceRockManager.coalitionRemoveRock(rockToRemove);

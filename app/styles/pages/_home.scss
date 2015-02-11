@@ -45,3 +45,49 @@ h1{
   display: none;
   font-family: sans-serif;
 }
+
+h2{
+  font-size: 30px;
+  display: block;
+  color: white;
+  font-family: sans-serif;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 750px;
+  height: 550px;
+}
+
+p{
+  width: 800px;
+  margin: auto;
+  color: white;
+  font-family: sans-serif;
+  position: absolute;
+  left: 0;
+  top: 5%;
+  right: 0;
+}
+
+.fog{
+
+  width: 850px;
+  height: 650px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,0) 0%, rgba(18,20,33,1) 80%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0)), color-stop(80%,rgba(18,20,33,1)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,0) 0%,rgba(18,20,33,1) 80%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,0) 0%,rgba(18,20,33,1) 80%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,0) 0%,rgba(18,20,33,1) 80%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0) 0%,rgba(18,20,33,1) 80%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#121421',GradientType=1 );
+}
