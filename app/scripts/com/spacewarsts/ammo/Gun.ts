@@ -60,9 +60,10 @@ module com.spacewarsts.ammo {
             this.ship.parent.addChild(b);
         }
 
-        public coalitionRemoveBullet(index):void {
-            this.ship.parent.removeChild(this.bulletArray[index]);
-            this.bulletArray.splice(index, 1);
+        public coalitionRemoveBullet(bullet):void {
+            this.ship.parent.removeChild(bullet);
+            var deleteR= this.bulletArray.indexOf(bullet);
+            this.bulletArray.splice(deleteR, 1);
         }
     }
 }

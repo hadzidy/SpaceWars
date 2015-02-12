@@ -70,12 +70,12 @@ module com.spacewarsts {
             });
 
             this._coalitionManager.addEventListener(CoalitionManager.BULLET_ROCK_COALITION_EVENT, (e:createjs.Event)=> {
-                console.log(e.data);
+                console.log(e.data, "the daaata");
                 var bulletToRemove= e.data[0];
                 var rockToRemove= e.data[1];
+
                 this._score+= 100;
                 $("h2").html(this._score);
-                console.log(this._score);
                 this._ship.gun.coalitionRemoveBullet(bulletToRemove);
                 this.spaceRockManager.coalitionRemoveRock(rockToRemove);
             });
@@ -103,6 +103,8 @@ module com.spacewarsts {
             var deltaTime = event.delta;
             this._ship.update(deltaTime);
             this._spaceRockManager.update(deltaTime);
+
+            //console.log((Math.round(event.time / 100)/ 10).toFixed(1));
 
             this._coalitionManager.update();
             this._stage.update();

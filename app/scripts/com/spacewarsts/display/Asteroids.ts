@@ -13,7 +13,8 @@ module com.spacewarsts.display {
 
         private deltaY:number;
         private deltaX:number;
-        public _radius:number;
+
+        private _radius:number;
 
         constructor (private target:IPoint) {
 

@@ -78,7 +78,9 @@ module com.spacewarsts.core {
                     var distance = getDistance(a,b);
                     if(distance < (bullet.radius +rock.radius)){
                         var event = new createjs.Event(CoalitionManager.BULLET_ROCK_COALITION_EVENT, false, false);
-                        event.data= [indexB,indexR];
+                        console.log(rock);
+
+                        event.data= [bullet,rock];
                         this.dispatchEvent(event);
                     }
                 }

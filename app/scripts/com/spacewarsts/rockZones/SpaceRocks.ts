@@ -83,9 +83,10 @@ module com.spacewarsts.rockZones {
             this.rockArray.push(a);
             this.stage.addChild(a);
         }
-        coalitionRemoveRock(index:any):void {
-            this.stage.removeChild(this.rockArray[index]);
-            this.rockArray.splice(index, 1);
+        coalitionRemoveRock(rock:any):void {
+            this.stage.removeChild(rock);
+            var deleteR= this.rockArray.indexOf(rock);
+            this.rockArray.splice(deleteR, 1);
         }
     }
 }
