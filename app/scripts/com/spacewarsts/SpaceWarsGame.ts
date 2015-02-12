@@ -4,6 +4,9 @@
 /// <reference path="./rockZones/SpaceRocks.ts" />
 /// <reference path="./ui/Keyboard.ts" />
 /// <reference path="./core/CoalitionManager.ts" />
+/// <reference path="./core/Hud.ts" />
+/// <reference path="./events/CoalitionEvent.ts" />
+/// <reference path="./display/ISpaceRock.ts" />
 
 
 module com.spacewarsts {
@@ -14,6 +17,9 @@ module com.spacewarsts {
     import Asteroids= display.Asteroids;
     import Keyboard = ui.Keyboard;
     import CoalitionManager = core.CoalitionManager;
+    import Hud = core.Hud;
+    import CoalitionEvent = events.CoalitionEvent;
+    import ISpaceRock = display.ISpaceRock;
 
 
     export class SpaceWarsGame {
@@ -23,15 +29,16 @@ module com.spacewarsts {
         private _coalitionManager:CoalitionManager;
         private _spaceRockManager:SpaceRocks;
         private _ticker_handler;
+        private _hud;
 
-        private _score;
+
 
 
         constructor(){
             console.log("New Space Wars Game Created");
             Keyboard.initialize($(document));
 
-            this._score= 0;
+
         }
 
         get stage():createjs.Stage {
@@ -54,11 +61,14 @@ module com.spacewarsts {
             this._ship = new Spaceship();
             this._stage.addChild(this._ship);
             this._spaceRockManager =  new SpaceRocks(this._stage, this._ship);
+            this._hud = new Hud();
+            this.stage.addChild(this._hud.scoreInput);
+            this.stage.addChild(this._hud.timeInput);
 
             this._coalitionManager = new CoalitionManager(this);
             console.log(this._ship);
 
-            this._coalitionManager.addEventListener(CoalitionManager.ROCK_SHIP_COALITION_EVENT, (e:createjs.Event)=> {
+            this._coalitionManager.addEventListener(CoalitionEvent.ROCK_SHIP_COALITION_EVENT, (e:CoalitionEvent)=> {
                 var shipIndex= this.stage.children.indexOf(this._ship);
                 this.stage.removeChildAt(shipIndex);
                 this.stage.removeAllChildren();
@@ -69,13 +79,11 @@ module com.spacewarsts {
 
             });
 
-            this._coalitionManager.addEventListener(CoalitionManager.BULLET_ROCK_COALITION_EVENT, (e:createjs.Event)=> {
+            this._coalitionManager.addEventListener(CoalitionEvent.BULLET_ROCK_COALITION_EVENT, (e:CoalitionEvent)=> {
                 console.log(e.data, "the daaata");
-                var bulletToRemove= e.data[0];
-                var rockToRemove= e.data[1];
-
-                this._score+= 100;
-                $("h2").html(this._score);
+                var bulletToRemove:Bullet = e.bulletRockCoalitionData.bullet;
+                var rockToRemove:ISpaceRock = e.bulletRockCoalitionData.rock;
+                this._hud.score = (rockToRemove.scoreValue);
                 this._ship.gun.coalitionRemoveBullet(bulletToRemove);
                 this.spaceRockManager.coalitionRemoveRock(rockToRemove);
             });
@@ -105,9 +113,11 @@ module com.spacewarsts {
             this._spaceRockManager.update(deltaTime);
 
             //console.log((Math.round(event.time / 100)/ 10).toFixed(1));
+            this._hud.timer= (event.time);
 
             this._coalitionManager.update();
             this._stage.update();
+            this._hud.update();
         }
 
         private showGameOver(){

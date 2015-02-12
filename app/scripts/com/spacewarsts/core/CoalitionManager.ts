@@ -7,6 +7,7 @@
 /// <reference path="./../display/Bullets.ts" />
 /// <reference path="./../rockZones/SpaceRocks.ts" />
 /// <reference path="../utils/math/getDistance.ts" />
+/// <reference path="../events/CoalitionEvent.ts" />
 /// <reference path="../SpaceWarsGame.ts" />
 
 module com.spacewarsts.core {
@@ -16,14 +17,12 @@ module com.spacewarsts.core {
     import ISpaceRock= display.ISpaceRock;
     import Bullets= display.Bullets;
     import getDistance = utils.math.getDistance;
+    import CoalitionEvent = events.CoalitionEvent;
     //import SpaceWarsGame = spacewarsts.SpaceWarsGame;
 
     export class CoalitionManager extends createjs.EventDispatcher {
 
         private _shipHitArea:createjs.Shape;
-
-        static ROCK_SHIP_COALITION_EVENT = "CoalitionManager.RockShipCoalitionEvent"
-        static BULLET_ROCK_COALITION_EVENT = "CoalitionManager.BulletRockCoalitionEvent"
 
         constructor (private game:SpaceWarsGame) {
             super();
@@ -58,7 +57,7 @@ module com.spacewarsts.core {
                 var b = {x:rock.x, y:rock.y};
                 var distance = getDistance(a,b);
                 if(distance < (ship.radius + rock.radius)){
-                    this.dispatchEvent(new createjs.Event(CoalitionManager.ROCK_SHIP_COALITION_EVENT, false, false));
+                    this.dispatchEvent(new CoalitionEvent(CoalitionEvent.ROCK_SHIP_COALITION_EVENT));
                 }
 
             }
@@ -77,10 +76,9 @@ module com.spacewarsts.core {
                     var b = {x: rock.x, y: rock.y};
                     var distance = getDistance(a,b);
                     if(distance < (bullet.radius +rock.radius)){
-                        var event = new createjs.Event(CoalitionManager.BULLET_ROCK_COALITION_EVENT, false, false);
+                        var event = new CoalitionEvent(CoalitionEvent.BULLET_ROCK_COALITION_EVENT);
                         console.log(rock);
-
-                        event.data= [bullet,rock];
+                        event.bulletRockCoalitionData = {bullet:bullet,rock:rock};
                         this.dispatchEvent(event);
                     }
                 }

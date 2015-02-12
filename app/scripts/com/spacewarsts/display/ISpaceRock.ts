@@ -9,6 +9,7 @@ module com.spacewarsts.display {
         x:number;
         y:number;
         radius:number;
+        scoreValue:number;
         update():void;
     }
 }

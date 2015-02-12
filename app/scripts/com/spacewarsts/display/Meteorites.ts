@@ -14,6 +14,7 @@ module com.spacewarsts.display {
         private deltaY:number;
         private deltaX:number;
         private _radius:number;
+        private _scoreValue:number;
 
         constructor (private target:IPoint) {
 
@@ -23,10 +24,14 @@ module com.spacewarsts.display {
             this.getDirection();
 
             this._radius= 10;
+            this._scoreValue= 100;
         }
 
         get radius(){
             return this._radius;
+        }
+        get scoreValue(){
+            return this._scoreValue;
         }
 
         private setInitialPosition():void {
