@@ -14,10 +14,22 @@ module com.spacewarsts.display {
         private initY:number;
         private _radius:number;
 
-        constructor (config:{xPos:number;yPos:number;angle:number}) {
+        constructor (config?:{xPos:number;yPos:number;angle:number}) {
 
             super();
+            var initPosition = config;
+            if (initPosition == null) {
+                initPosition = {xPos:0, yPos:0, angle:0};
+            }
+            this.setPosition(initPosition);
+            this.init();
+        }
 
+        get radius(){
+            return this._radius;
+        }
+
+        setPosition(config:{xPos:number;yPos:number;angle:number}):void {
             this.x = this.initX = config.xPos;
             this.y = this.initY = config.yPos;
             this.rotation = config.angle;
@@ -26,11 +38,6 @@ module com.spacewarsts.display {
             this.deltaY = (Math.sin(toRad(this.rotation))) * 10;
             this._radius= 3;
 
-            this.init();
-        }
-
-        get radius(){
-            return this._radius;
         }
 
         init():void {

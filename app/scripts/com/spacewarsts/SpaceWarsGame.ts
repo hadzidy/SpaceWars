@@ -69,13 +69,13 @@ module com.spacewarsts {
             console.log(this._ship);
 
             this._coalitionManager.addEventListener(CoalitionEvent.ROCK_SHIP_COALITION_EVENT, (e:CoalitionEvent)=> {
-                var shipIndex= this.stage.children.indexOf(this._ship);
-                this.stage.removeChildAt(shipIndex);
-                this.stage.removeAllChildren();
-                this.showGameOver();
-                console.log("GameOVer");
-
-                this.stopTicker();
+                //var shipIndex= this.stage.children.indexOf(this._ship);
+                //this.stage.removeChildAt(shipIndex);
+                //this.stage.removeAllChildren();
+                //this.showGameOver();
+                //console.log("GameOVer");
+                //
+                //this.stopTicker();
 
             });
 
