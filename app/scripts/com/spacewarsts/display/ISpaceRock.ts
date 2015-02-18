@@ -11,5 +11,6 @@ module com.spacewarsts.display {
         radius:number;
         scoreValue:number;
         update():void;
+        setPosition(target:IPoint):void;
     }
 }

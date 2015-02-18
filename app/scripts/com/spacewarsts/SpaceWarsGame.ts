@@ -1,12 +1,15 @@
 /// <reference path="./display/SpaceShip.ts" />
 /// <reference path="./display/Bullets.ts" />
 /// <reference path="./display/Asteroids.ts" />
+/// <reference path="./display/Planet.ts" />
+/// <reference path="./display/Comet.ts" />
 /// <reference path="./rockZones/SpaceRocks.ts" />
 /// <reference path="./ui/Keyboard.ts" />
 /// <reference path="./core/CoalitionManager.ts" />
 /// <reference path="./core/Hud.ts" />
 /// <reference path="./events/CoalitionEvent.ts" />
 /// <reference path="./display/ISpaceRock.ts" />
+/// <reference path="./utils/math/IPoint.ts" />
 
 
 module com.spacewarsts {
@@ -83,6 +86,29 @@ module com.spacewarsts {
                 console.log(e.data, "the daaata");
                 var bulletToRemove:Bullet = e.bulletRockCoalitionData.bullet;
                 var rockToRemove:ISpaceRock = e.bulletRockCoalitionData.rock;
+
+                var positions:Array<utils.math.IPoint> = [{x: 0, y: 0}, {x: 800, y: 0}, {x: 0, y: 600}, {x: 800, y: 600}]
+
+                if (rockToRemove instanceof display.Planet || rockToRemove instanceof display.Comet) {
+
+                    console.log("crear asteroide!!!!");
+
+                    for (var i = 0; i < positions.length; i++) {
+
+                        var rock:ISpaceRock  = utils.RockPool.getInstance().alloc();
+                        rock.setPosition(positions[i]);
+
+                        var shape:createjs.Shape = <createjs.Shape>rock;
+                        shape.x = bulletToRemove.x;
+                        shape.y = bulletToRemove.y;
+                        this._spaceRockManager.addRock(rock);
+                        this.stage.addChild(shape);
+                    }
+
+
+
+
+                }
                 this._hud.score = (rockToRemove.scoreValue);
                 this._ship.gun.coalitionRemoveBullet(bulletToRemove);
                 this.spaceRockManager.coalitionRemoveRock(rockToRemove);

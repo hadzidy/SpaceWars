@@ -15,13 +15,15 @@ module com.spacewarsts.display {
         private deltaX:number;
         private _radius:number;
         private _scoreValue:number;
+        private target;
 
-        constructor (private target:IPoint) {
+        private _speed:number= 500;
+
+
+        constructor () {
 
             super();
             this.init();
-            this.setInitialPosition();
-            this.getDirection();
 
             this._radius= 10;
             this._scoreValue= 100;
@@ -32,12 +34,6 @@ module com.spacewarsts.display {
         }
         get scoreValue(){
             return this._scoreValue;
-        }
-
-        private setInitialPosition():void {
-            var angle= this.getRandomAngle();
-            this.x= this.target.x+ Math.cos(angle)* 500;
-            this.y= this.target.y+ Math.sin(angle)* 500;
         }
 
         private getRandomAngle():number {
@@ -64,6 +60,13 @@ module com.spacewarsts.display {
 
             this.deltaX = (Math.cos(toRad(angleRotation))* 6);
             this.deltaY = (Math.sin(toRad(angleRotation))* 6);
+        }
+        setPosition(target:IPoint){
+            this.target= target;
+            var angle= this.getRandomAngle();
+            this.x= this.target.x+ Math.cos(angle)* this._speed;
+            this.y= this.target.y+ Math.sin(angle)* this._speed;
+            this.getDirection();
         }
 
         update():void {

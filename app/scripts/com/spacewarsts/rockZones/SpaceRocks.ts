@@ -12,6 +12,7 @@
 /// <reference path="../display/ISpaceRock.ts" />
 /// <reference path="../display/SpaceRockFactory.ts" />
 /// <reference path="../utils/math/IPoint.ts" />
+/// <reference path="../utils/RockPool.ts" />
 
 module com.spacewarsts.rockZones {
 
@@ -22,6 +23,7 @@ module com.spacewarsts.rockZones {
     import ISpaceRock= display.ISpaceRock;
     import SpaceRockFactory = display.SpaceRockFactory;
     import IPoint = utils.math.IPoint;
+    import RockPool = utils.RockPool;
 
     export class SpaceRocks {
 
@@ -52,6 +54,12 @@ module com.spacewarsts.rockZones {
                 var a:ISpaceRock = this.rockArray[index];
                 a.update();
 
+
+                if(a.x < -100 || a.x > 900 || a.y < -100 || a.y > 700) {
+                    this.rockArray.splice(index,1);
+                    RockPool.getInstance().free(a);
+                }
+
             }
         }
 
@@ -66,27 +74,34 @@ module com.spacewarsts.rockZones {
 
         private createRock():void {
 
-            var roca:number = Math.floor(Math.random() * 4) + 1;
-
             var rock_position:IPoint = {x: this.ship.x, y: this.ship.y};
 
-            if (roca == SpaceRockFactory.PLANET_TYPE) {
+            var a:ISpaceRock = RockPool.getInstance().alloc();
+
+            if (a instanceof Planet) {
                 rock_position = {x:this.stage.canvas.clientWidth/2, y:this.stage.canvas.clientHeight/2};
-            }
-            if (roca == SpaceRockFactory.METEORITE_TYPE) {
+            } else
+            if (a instanceof Meteorites) {
                 rock_position = {x:this.stage.canvas.clientWidth/3, y:this.stage.canvas.clientHeight/3};
             }
 
-            var a:ISpaceRock = SpaceRockFactory.create(roca, rock_position);
+            a.setPosition(rock_position);
 
 
             this.rockArray.push(a);
             this.stage.addChild(a);
         }
+
+        public addRock(value:ISpaceRock) {
+            this.rockArray.push(value);
+        }
+
         coalitionRemoveRock(rock:any):void {
             this.stage.removeChild(rock);
             var deleteR= this.rockArray.indexOf(rock);
             this.rockArray.splice(deleteR, 1);
+
+            RockPool.getInstance().free(rock);
         }
     }
 }

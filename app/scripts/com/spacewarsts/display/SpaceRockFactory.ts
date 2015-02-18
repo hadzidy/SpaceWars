@@ -16,24 +16,24 @@ module com.spacewarsts.display {
         static PLANET_TYPE:number = 3;
         static METEORITE_TYPE:number = 4;
 
-        static create (id:number, rockTarget:IPoint):ISpaceRock {
+        static create (id:number):ISpaceRock {
             var a:ISpaceRock;
             switch(id){
                 case SpaceRockFactory.ASTEROID_TYPE:
-                    a = new Asteroids(rockTarget);
+                    a = new Asteroids();
 
                     break;
                 case SpaceRockFactory.COMET_TYPE:
-                    a = new Comet(rockTarget);
+                    a = new Comet();
 
                     break;
 
                 case SpaceRockFactory.PLANET_TYPE:
-                    a = new Planet(rockTarget);
+                    a = new Planet();
 
                     break;
                 case SpaceRockFactory.METEORITE_TYPE:
-                    a = new Meteorites(rockTarget);
+                    a = new Meteorites();
 
                     break;
             }

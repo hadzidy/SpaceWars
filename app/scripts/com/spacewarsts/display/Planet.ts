@@ -15,13 +15,14 @@ module com.spacewarsts.display {
         private deltaX:number;
         private _radius:number;
         private _scoreValue:number;
+        private target:IPoint;
 
-        constructor (private target:IPoint) {
+        private _speed:number= 100;
+
+        constructor () {
 
             super();
             this.init();
-            this.setInitialPosition();
-            this.getDirection();
 
             this._radius= 20;
             this._scoreValue= 20;
@@ -57,6 +58,15 @@ module com.spacewarsts.display {
 
             this.deltaX = (Math.cos(toRad(angleRotation))* 2);
             this.deltaY = (Math.sin(toRad(angleRotation))* 2);
+        }
+
+
+        setPosition(target:IPoint){
+            this.target= target;
+            var angle= this.getRandomAngle();
+            this.x= this.target.x+ Math.cos(angle)* this._speed;
+            this.y= this.target.y+ Math.sin(angle)* this._speed;
+            this.getDirection();
         }
 
         update():void {
